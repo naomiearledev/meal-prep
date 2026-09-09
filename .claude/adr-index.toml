@@ -1,0 +1,40 @@
+# ADR index for meal-prep. Maintained by .claude/adr-helper.sh; hand edits are fine.
+# One inline table per ADR, one per line, keyed by branch name without the type prefix.
+
+[project]
+name = "meal-prep"
+description = "Personal meal prep portal: recipes, ingredient library, orders, shopping lists, prep sheets"
+adr_system_version = "1.1"
+
+[active.feat]
+
+[active.chore]
+
+[active.docs]
+
+[active.fix]
+
+[merged.feat]
+
+[merged.chore]
+"project-setup" = { file = "merged/2026-09/chore-project-setup.md", created = "2026-09-09", author = "Claude", tags = ["tooling", "setup", "testing"], description = "Repo, Next.js scaffold, Vitest, CLAUDE.md, ADR system, README", status = "merged", merged = "2026-09-09" }
+
+[merged.docs]
+
+[merged.fix]
+
+[relationships.depends_on]
+
+[relationships.enables]
+
+[categories.core-logic]
+branches = []
+
+[categories.data]
+branches = []
+
+[categories.ui]
+branches = []
+
+[categories.tooling]
+branches = []
