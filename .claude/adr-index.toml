@@ -15,6 +15,7 @@ adr_system_version = "1.1"
 [active.fix]
 
 [merged.feat]
+"prep-sheet" = { file = "merged/2026-09/feat-prep-sheet.md", created = "2026-09-09", author = "Claude", tags = ["ui", "prep-sheet", "print", "orders"], description = "Print-optimised prep sheet with merged portions per recipe and an allocation table", status = "merged", merged = "2026-09-09" }
 "shopping-list" = { file = "merged/2026-09/feat-shopping-list.md", created = "2026-09-09", author = "Claude", tags = ["ui", "shopping-list", "orders"], description = "Order selection, merged shopping list and copy-to-clipboard for Apple Reminders", status = "merged", merged = "2026-09-09" }
 "cart-and-orders" = { file = "merged/2026-09/feat-cart-and-orders.md", created = "2026-09-09", author = "Claude", tags = ["ui", "data", "cart", "orders"], description = "Cart of recipes and portions, create order, orders list with fulfilled flag and filter", status = "merged", merged = "2026-09-09" }
 "recipes" = { file = "merged/2026-09/feat-recipes.md", created = "2026-09-09", author = "Claude", tags = ["ui", "data", "recipes", "photos"], description = "Recipe CRUD with ingredient rows, steps and phone photo upload", status = "merged", merged = "2026-09-09" }

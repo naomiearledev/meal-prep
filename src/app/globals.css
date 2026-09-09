@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media print {
+  /* Let the prep sheet use the whole page; the nav is already print:hidden. */
+  body {
+    color: black;
+    background: white;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

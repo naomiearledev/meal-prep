@@ -29,6 +29,13 @@ export function OrdersList({ orders, toggleFulfilledAction }: Props) {
         <button type="submit" className="rounded bg-neutral-900 px-3 py-2 font-medium text-white">
           Shopping list
         </button>
+        <button
+          type="submit"
+          formAction="/orders/prep-sheet"
+          className="rounded bg-neutral-900 px-3 py-2 font-medium text-white"
+        >
+          Prep sheet
+        </button>
       </form>
 
       <ul className="flex flex-col gap-4">

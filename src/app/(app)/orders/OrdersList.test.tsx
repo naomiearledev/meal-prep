@@ -42,6 +42,10 @@ describe("OrdersList", () => {
     expect(button.closest("form")).toHaveAttribute("action", "/orders/shopping-list");
     expect(button.closest("form")).toHaveAttribute("method", "get");
     expect(tick.getAttribute("form")).toBe(button.closest("form")?.id);
+
+    const prep = screen.getByRole("button", { name: "Prep sheet" });
+    expect(prep).toHaveAttribute("formaction", "/orders/prep-sheet");
+    expect(prep.closest("form")).toBe(button.closest("form"));
   });
 
   it("shows each order's date, items and fulfilled state with the right toggle", () => {
