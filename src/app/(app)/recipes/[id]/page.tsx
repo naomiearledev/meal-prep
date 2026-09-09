@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDb } from "@/db";
 import { getRecipe } from "@/db/recipes";
+import { addToCartAction } from "../../cart/actions";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -25,6 +26,29 @@ export default async function RecipePage({ params }: Props) {
       )}
 
       {recipe.notes && <p className="whitespace-pre-line text-neutral-700">{recipe.notes}</p>}
+
+      <form
+        action={addToCartAction.bind(null, recipe.id)}
+        className="flex flex-wrap items-center gap-3 rounded-lg border border-neutral-200 p-4"
+      >
+        <label htmlFor="portions" className="text-sm font-medium">
+          Portions
+        </label>
+        <input
+          id="portions"
+          type="number"
+          name="portions"
+          defaultValue={1}
+          min={1}
+          step={1}
+          required
+          inputMode="numeric"
+          className="w-20 rounded border border-neutral-300 px-3 py-2"
+        />
+        <button type="submit" className="rounded bg-neutral-900 px-4 py-2 text-sm font-medium text-white">
+          Add to cart
+        </button>
+      </form>
 
       <section className="flex flex-col gap-2">
         <h2 className="text-lg font-semibold">
