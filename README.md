@@ -24,8 +24,9 @@ npm run dev
 
 Open http://localhost:3000 and log in with the password from `.env`.
 
-`db:migrate` and `db:seed` arrive with the database step; until then `npm run dev` is
-enough.
+`db:seed` arrives with the ingredient library step. The database is also brought up to
+date automatically whenever the app opens it, so `db:migrate` is really just a way to
+create `data/app.db` up front and see that it worked.
 
 ## Environment variables
 
@@ -35,6 +36,7 @@ Copy `.env.example` to `.env` and set:
 |---|---|
 | `APP_PASSWORD` | The one shared password for logging in |
 | `AUTH_SECRET` | Any long random string; signs the login cookie |
+| `DATABASE_PATH` | Optional. Where the SQLite file lives. Defaults to `data/app.db` |
 
 `.env` is gitignored. Never commit it.
 
@@ -49,6 +51,8 @@ mount `data/` as a persistent volume and set the two environment variables.
 npm test            # run the tests once
 npm run test:watch  # keep them running
 npm run lint
+npm run db:generate # after editing src/db/schema.ts: writes a new migration into drizzle/
+npm run db:studio   # browse the database in Drizzle Studio
 ```
 
 Everything is built test-first. Decisions are recorded per branch in `.claude/` using

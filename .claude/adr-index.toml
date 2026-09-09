@@ -17,6 +17,7 @@ adr_system_version = "1.1"
 [merged.feat]
 
 [merged.chore]
+"database" = { file = "merged/2026-09/chore-database.md", created = "2026-09-09", author = "Claude", tags = ["data", "auth", "drizzle", "sqlite"], description = "SQLite via better-sqlite3, Drizzle schema and migrations, shared-password login", status = "merged", merged = "2026-09-09" }
 "project-setup" = { file = "merged/2026-09/chore-project-setup.md", created = "2026-09-09", author = "Claude", tags = ["tooling", "setup", "testing"], description = "Repo, Next.js scaffold, Vitest, CLAUDE.md, ADR system, README", status = "merged", merged = "2026-09-09" }
 
 [merged.docs]
