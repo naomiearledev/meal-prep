@@ -15,6 +15,7 @@ adr_system_version = "1.1"
 [active.fix]
 
 [merged.feat]
+"unit-conversion" = { file = "merged/2026-09/feat-unit-conversion.md", created = "2026-09-09", author = "Claude", tags = ["core-logic", "units", "conversion"], description = "units.ts and aggregate.ts: per-ingredient volume/weight/count conversion and merging on ingredient ID", status = "merged", merged = "2026-09-09" }
 
 [merged.chore]
 "database" = { file = "merged/2026-09/chore-database.md", created = "2026-09-09", author = "Claude", tags = ["data", "auth", "drizzle", "sqlite"], description = "SQLite via better-sqlite3, Drizzle schema and migrations, shared-password login", status = "merged", merged = "2026-09-09" }
