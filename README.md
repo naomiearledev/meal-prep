@@ -38,6 +38,7 @@ Copy `.env.example` to `.env` and set:
 | `APP_PASSWORD` | The one shared password for logging in |
 | `AUTH_SECRET` | Any long random string; signs the login cookie |
 | `DATABASE_PATH` | Optional. Where the SQLite file lives. Defaults to `data/app.db` |
+| `UPLOADS_DIR` | Optional. Where recipe photos are stored. Defaults to `data/uploads` |
 
 `.env` is gitignored. Never commit it.
 

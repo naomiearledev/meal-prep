@@ -132,3 +132,24 @@ export function formatQuantity(value: number, unit: BaseUnit, countUnit?: string
     }
   }
 }
+
+/**
+ * The units a recipe may use for this ingredient: everything `toBaseUnit` can convert
+ * given the densities it has. The most natural unit comes first.
+ */
+export function allowedUnits(ingredient: IngredientMeasure): string[] {
+  const hasDensity = ingredient.gramsPerMl !== null && ingredient.gramsPerMl > 0;
+  const hasGramsEach = ingredient.gramsEach !== null && ingredient.gramsEach > 0;
+  switch (ingredient.measureType) {
+    case "weight":
+      return hasDensity ? [...WEIGHT_UNITS, ...VOLUME_UNITS] : [...WEIGHT_UNITS];
+    case "volume":
+      return hasDensity ? [...VOLUME_UNITS, ...WEIGHT_UNITS] : [...VOLUME_UNITS];
+    case "count": {
+      const units = [ingredient.countUnit ?? "each"];
+      if (hasGramsEach) units.push(...WEIGHT_UNITS);
+      if (hasGramsEach && hasDensity) units.push(...VOLUME_UNITS);
+      return units;
+    }
+  }
+}

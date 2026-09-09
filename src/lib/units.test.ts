@@ -2,6 +2,7 @@
 import { describe, it, expect } from "vitest";
 import {
   toBaseUnit,
+  allowedUnits,
   formatQuantity,
   roundForShopping,
   ConversionError,
@@ -174,5 +175,26 @@ describe("formatQuantity", () => {
   it("trims meaningless decimals", () => {
     expect(formatQuantity(100.0000001, "g")).toBe("100 g");
     expect(formatQuantity(41.400000000000006, "g")).toBe("41.4 g");
+  });
+});
+
+describe("allowedUnits", () => {
+  it("offers only weight units for a weight ingredient with no density", () => {
+    expect(allowedUnits(chicken)).toEqual(["g", "kg"]);
+  });
+
+  it("adds volume units when a weight ingredient has a density", () => {
+    expect(allowedUnits(oliveOil)).toEqual(["g", "kg", "ml", "l", "tsp", "tbsp", "cup"]);
+  });
+
+  it("offers volume units for a volume ingredient, plus weight when it has a density", () => {
+    expect(allowedUnits(stock)).toEqual(["ml", "l", "tsp", "tbsp", "cup"]);
+    expect(allowedUnits(milk)).toEqual(["ml", "l", "tsp", "tbsp", "cup", "g", "kg"]);
+  });
+
+  it("offers the count unit first for a count ingredient, then whatever converts", () => {
+    expect(allowedUnits(tin)).toEqual(["tin"]);
+    expect(allowedUnits(egg)).toEqual(["egg", "g", "kg"]);
+    expect(allowedUnits(garlic)).toEqual(["clove", "g", "kg", "ml", "l", "tsp", "tbsp", "cup"]);
   });
 });

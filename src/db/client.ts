@@ -27,3 +27,7 @@ export function createDb(file: string) {
 }
 
 export type Db = ReturnType<typeof createDb>;
+/** The object handed to a `db.transaction()` callback. */
+export type Tx = Parameters<Parameters<Db["transaction"]>[0]>[0];
+/** Anything you can run queries on: the database or a transaction inside it. */
+export type Queryable = Db | Tx;
