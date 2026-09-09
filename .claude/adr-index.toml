@@ -15,6 +15,7 @@ adr_system_version = "1.1"
 [active.fix]
 
 [merged.feat]
+"ingredient-library" = { file = "merged/2026-09/feat-ingredient-library.md", created = "2026-09-09", author = "Claude", tags = ["ui", "data", "ingredients", "seed"], description = "/ingredients CRUD and ~120 seeded UK ingredients with densities", status = "merged", merged = "2026-09-09" }
 "unit-conversion" = { file = "merged/2026-09/feat-unit-conversion.md", created = "2026-09-09", author = "Claude", tags = ["core-logic", "units", "conversion"], description = "units.ts and aggregate.ts: per-ingredient volume/weight/count conversion and merging on ingredient ID", status = "merged", merged = "2026-09-09" }
 
 [merged.chore]

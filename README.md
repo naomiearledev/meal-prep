@@ -18,15 +18,16 @@ cd meal-prep
 npm install
 cp .env.example .env      # then edit it, see below
 npm run db:migrate        # creates data/app.db
-npm run db:seed           # ~120 common UK ingredients with densities
+npm run db:seed           # ~200 common UK ingredients with densities
 npm run dev
 ```
 
 Open http://localhost:3000 and log in with the password from `.env`.
 
-`db:seed` arrives with the ingredient library step. The database is also brought up to
-date automatically whenever the app opens it, so `db:migrate` is really just a way to
-create `data/app.db` up front and see that it worked.
+The database is brought up to date automatically whenever the app opens it, so
+`db:migrate` is really just a way to create `data/app.db` up front and see that it
+worked. `db:seed` loads about 200 common UK ingredients with their densities; it skips
+anything already there, so it is safe to run again and never overwrites your edits.
 
 ## Environment variables
 

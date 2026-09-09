@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="min-h-screen p-8">
+    <main>
       <h1 className="text-3xl font-semibold">Meal Prep</h1>
     </main>
   );
