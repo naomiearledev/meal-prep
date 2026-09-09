@@ -32,6 +32,18 @@ describe("OrdersList", () => {
     expect(screen.getByText(/no outstanding orders/i)).toBeInTheDocument();
   });
 
+  it("lets orders be ticked and sent to the shopping list", () => {
+    render(<OrdersList orders={orders} toggleFulfilledAction={noop} />);
+    const tick = screen.getByRole("checkbox", { name: /7 Sept 2026/ });
+    expect(tick).toHaveAttribute("name", "ids");
+    expect(tick).toHaveAttribute("value", "2");
+    expect(screen.getByRole("checkbox", { name: /3 Sept 2026/ })).toHaveAttribute("value", "1");
+    const button = screen.getByRole("button", { name: "Shopping list" });
+    expect(button.closest("form")).toHaveAttribute("action", "/orders/shopping-list");
+    expect(button.closest("form")).toHaveAttribute("method", "get");
+    expect(tick.getAttribute("form")).toBe(button.closest("form")?.id);
+  });
+
   it("shows each order's date, items and fulfilled state with the right toggle", () => {
     render(<OrdersList orders={orders} toggleFulfilledAction={noop} />);
     const open = screen.getByRole("listitem", { name: /7 Sept 2026/ });

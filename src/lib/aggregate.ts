@@ -73,3 +73,8 @@ function convert(amount: number, unit: string, ingredient: ShoppingIngredient) {
     throw error;
   }
 }
+
+/** One ingredient per line. Pasted into Apple Reminders, each line becomes an item. */
+export function shoppingListText(lines: ShoppingLine[]): string {
+  return lines.map((line) => `${line.name} ${line.display}`).join("\n");
+}

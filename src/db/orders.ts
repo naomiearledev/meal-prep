@@ -1,7 +1,8 @@
 import { asc, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 import type { Db, Queryable } from "./client";
-import { orderItems, orders, recipes } from "./schema";
+import { ingredients, orderItems, orders, recipeIngredients, recipes } from "./schema";
 import { clearCart, getCart } from "./cart";
+import type { ShoppingSource } from "@/lib/aggregate";
 
 export type Order = typeof orders.$inferSelect;
 
@@ -71,4 +72,36 @@ export function setOrderFulfilled(db: Db, id: number, fulfilled: boolean): Order
     .get();
   if (!updated) throw new OrderError("That order no longer exists");
   return updated;
+}
+
+/** The given orders, oldest first. Unknown ids are ignored. */
+export function getOrdersByIds(db: Db, ids: number[]): OrderSummary[] {
+  if (ids.length === 0) return [];
+  const rows = db
+    .select()
+    .from(orders)
+    .where(inArray(orders.id, ids))
+    .orderBy(asc(orders.createdAt), asc(orders.id))
+    .all();
+  return summarise(db, rows);
+}
+
+/**
+ * Every recipe line across the given orders, each paired with the portions that order
+ * asked for. Feed straight into `aggregateShoppingList`.
+ */
+export function shoppingSourcesForOrders(db: Db, ids: number[]): ShoppingSource[] {
+  if (ids.length === 0) return [];
+  return db
+    .select({
+      portions: orderItems.portions,
+      amount: recipeIngredients.amount,
+      unit: recipeIngredients.unit,
+      ingredient: ingredients,
+    })
+    .from(orderItems)
+    .innerJoin(recipeIngredients, eq(recipeIngredients.recipeId, orderItems.recipeId))
+    .innerJoin(ingredients, eq(ingredients.id, recipeIngredients.ingredientId))
+    .where(inArray(orderItems.orderId, ids))
+    .all();
 }

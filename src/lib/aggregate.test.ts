@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { describe, it, expect } from "vitest";
-import { aggregateShoppingList, type ShoppingSource } from "./aggregate";
+import { aggregateShoppingList, shoppingListText, type ShoppingSource } from "./aggregate";
 
 const oliveOil = {
   id: 1,
@@ -108,5 +108,20 @@ describe("aggregateShoppingList", () => {
   it("names the ingredient when a line cannot be converted", () => {
     const bad: ShoppingSource = { portions: 1, ingredient: chicken, amount: 1, unit: "tbsp" };
     expect(() => aggregateShoppingList([bad])).toThrow(/Chicken thigh/);
+  });
+});
+
+describe("shoppingListText", () => {
+  it("puts one ingredient per line, name then quantity, ready for Reminders", () => {
+    const lines = aggregateShoppingList([
+      { portions: 8, ingredient: chicken, amount: 150, unit: "g" },
+      { portions: 1, ingredient: egg, amount: 3, unit: "each" },
+      { portions: 2, ingredient: stock, amount: 250, unit: "ml" },
+    ]);
+    expect(shoppingListText(lines)).toBe("Chicken stock 500 ml\nChicken thigh 1.2 kg\nEgg 3 eggs");
+  });
+
+  it("is empty for no lines", () => {
+    expect(shoppingListText([])).toBe("");
   });
 });

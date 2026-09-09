@@ -2,9 +2,17 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { eq } from "drizzle-orm";
 import { createDb, type Db } from "./client";
-import { orders, recipes } from "./schema";
+import { orders, recipes, recipeIngredients } from "./schema";
 import { addToCart, getCart } from "./cart";
-import { createOrderFromCart, listOrders, setOrderFulfilled, OrderError } from "./orders";
+import { createIngredient } from "./ingredients";
+import {
+  createOrderFromCart,
+  listOrders,
+  setOrderFulfilled,
+  getOrdersByIds,
+  shoppingSourcesForOrders,
+  OrderError,
+} from "./orders";
 
 let db: Db;
 let biryani: number;
@@ -77,5 +85,53 @@ describe("setOrderFulfilled", () => {
 
   it("refuses an unknown order", () => {
     expect(() => setOrderFulfilled(db, 42, true)).toThrow(OrderError);
+  });
+});
+
+describe("getOrdersByIds / shoppingSourcesForOrders", () => {
+  it("returns just the asked-for orders, oldest first, ignoring unknown ids", () => {
+    addToCart(db, biryani, 1);
+    const first = createOrderFromCart(db);
+    db.update(orders).set({ createdAt: new Date("2026-09-03T09:00:00Z") }).where(eq(orders.id, first.id)).run();
+    addToCart(db, chilli, 1);
+    const second = createOrderFromCart(db);
+    db.update(orders).set({ createdAt: new Date("2026-09-07T09:00:00Z") }).where(eq(orders.id, second.id)).run();
+    addToCart(db, chilli, 1);
+    createOrderFromCart(db);
+
+    const picked = getOrdersByIds(db, [second.id, first.id, 999]);
+    expect(picked.map((o) => o.id)).toEqual([first.id, second.id]);
+    expect(getOrdersByIds(db, [])).toEqual([]);
+  });
+
+  it("produces one source per recipe line per order, carrying that order's portions", () => {
+    const oil = createIngredient(db, { name: "Olive oil", measureType: "weight", gramsPerMl: 0.92, countUnit: null, gramsEach: null });
+    const beef = createIngredient(db, { name: "Minced beef", measureType: "weight", gramsPerMl: null, countUnit: null, gramsEach: null });
+    db.insert(recipeIngredients)
+      .values([
+        { recipeId: biryani, ingredientId: oil.id, amount: 1, unit: "tbsp", position: 0 },
+        { recipeId: chilli, ingredientId: beef.id, amount: 125, unit: "g", position: 0 },
+        { recipeId: chilli, ingredientId: oil.id, amount: 5, unit: "g", position: 1 },
+      ])
+      .run();
+
+    addToCart(db, biryani, 3);
+    addToCart(db, chilli, 2);
+    const first = createOrderFromCart(db);
+    addToCart(db, chilli, 4);
+    const second = createOrderFromCart(db);
+
+    const sources = shoppingSourcesForOrders(db, [first.id, second.id]);
+    const summary = sources
+      .map((s) => `${s.ingredient.name}:${s.amount}${s.unit}x${s.portions}`)
+      .sort();
+    expect(summary).toEqual([
+      "Minced beef:125gx2",
+      "Minced beef:125gx4",
+      "Olive oil:1tbspx3",
+      "Olive oil:5gx2",
+      "Olive oil:5gx4",
+    ]);
+    expect(sources[0].ingredient).toMatchObject({ measureType: "weight" });
   });
 });
