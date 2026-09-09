@@ -23,6 +23,7 @@ adr_system_version = "1.1"
 "unit-conversion" = { file = "merged/2026-09/feat-unit-conversion.md", created = "2026-09-09", author = "Claude", tags = ["core-logic", "units", "conversion"], description = "units.ts and aggregate.ts: per-ingredient volume/weight/count conversion and merging on ingredient ID", status = "merged", merged = "2026-09-09" }
 
 [merged.chore]
+"remove-plan" = { file = "merged/2026-09/chore-remove-plan.md", created = "2026-09-09", author = "Claude", tags = ["docs", "housekeeping"], description = "Remove PLAN.md from the repo now every step is built; the ADRs hold the record", status = "merged", merged = "2026-09-09" }
 "database" = { file = "merged/2026-09/chore-database.md", created = "2026-09-09", author = "Claude", tags = ["data", "auth", "drizzle", "sqlite"], description = "SQLite via better-sqlite3, Drizzle schema and migrations, shared-password login", status = "merged", merged = "2026-09-09" }
 "project-setup" = { file = "merged/2026-09/chore-project-setup.md", created = "2026-09-09", author = "Claude", tags = ["tooling", "setup", "testing"], description = "Repo, Next.js scaffold, Vitest, CLAUDE.md, ADR system, README", status = "merged", merged = "2026-09-09" }
 

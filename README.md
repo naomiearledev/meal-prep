@@ -59,7 +59,7 @@ npm run db:studio   # browse the database in Drizzle Studio
 
 Everything is built test-first. Decisions are recorded per branch in `.claude/` using
 the ADR system described in `.claude/ADR-SYSTEM-GUIDE.md`; `./.claude/adr-helper.sh list`
-shows what's there. The design is in `PLAN.md`.
+shows what's there.
 
 ## Stack
 

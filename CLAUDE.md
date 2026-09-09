@@ -2,7 +2,7 @@
 
 Personal meal prep tool: recipes, an ingredient library with densities, a cart, orders,
 a merged shopping list and a printable prep sheet. Everything is in weight. One user,
-one shared password, runs locally from a single SQLite file. See PLAN.md for the design.
+one shared password, runs locally from a single SQLite file. The design decisions are recorded per step in `.claude/merged/`.
 
 ## Rules
 
