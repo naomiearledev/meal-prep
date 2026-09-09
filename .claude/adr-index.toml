@@ -29,6 +29,7 @@ adr_system_version = "1.1"
 [merged.docs]
 
 [merged.fix]
+"env-example-ignored" = { file = "merged/2026-09/fix-env-example-ignored.md", created = "2026-09-09", author = "Claude", tags = ["setup", "gitignore", "onboarding"], description = ".env.example was gitignored by the scaffold's .env* rule, so a clean clone had nothing to copy", status = "merged", merged = "2026-09-09" }
 
 [relationships.depends_on]
 
